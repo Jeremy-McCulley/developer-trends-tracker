@@ -14,3 +14,10 @@ export const processRepoDataForChart = (repos: RepoData[]): ChartData[] =>{
    .sort((a, b) => b.count - a.count)
    .slice(0, 10); 
 };
+export const useTrendingRepos = () => {
+    return useQuery<RepoData[], Error>({
+        queryKey: ['trendingRepos'],
+        queryFn: fetchTrendingReposApi,
+        staleTime: 1000 * 60 * 30,
+    });
+};
