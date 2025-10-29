@@ -23,9 +23,9 @@ export const Dashboard: React.FC = () => {
     setInputValues(prev => ({ ...prev, [name]: value }));
   };
   return (
-    <section className="dashboard-layout" style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-      <div style={{ marginBottom: '30px', textAlign: 'center' }}>
-        <h1>Developer Interest Tracker</h1>
+    <section className="dashboard-layout">
+      <div className='appTitleText'>
+        <h1>Developer Trends Tracker</h1>
         <p>Tracking the top trending languages and repositories on GitHub.</p>
         
         {isFetching && (
@@ -34,22 +34,20 @@ export const Dashboard: React.FC = () => {
           </small>
         )}
       </div>
-      <div style={{ marginBottom: '30px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+      <div className='filterContainer'>
         <input
           type="text"
           name="location"
-          placeholder="Filter by Location"
+          placeholder="Filter by Country"
           value={inputValues.location}
           onChange={handleFilterChange}
-          style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
         <input
           type="text"
           name="topic"
-          placeholder="Filter by Topic (e.g., llm, typescript)"
+          placeholder="Filter by Topic"
           value={inputValues.topic}
           onChange={handleFilterChange}
-          style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
       </div>
 

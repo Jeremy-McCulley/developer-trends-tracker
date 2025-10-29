@@ -10,6 +10,21 @@
 @accent-two: #2dba4e; // Green
 @header-font: Poppins,Helvetica Neue,Arial,sans-serif;
 @body-font: Roboto,Tahoma,Verdana,sans-serif;
+// body
+#root{
+  width: 100%;
+}
+body{
+  background-color: @body-color;
+}
+h1,h2,h3,h4,h5,h6,th{
+  font-family: @header-font;
+  color: @accent-one;
+}
+p,a,li,td,figcaption,blockquote{
+  font-family: @body-font;
+  color: @accent-one;
+}
 // header
 header{
   width: 100%;
@@ -23,6 +38,28 @@ header{
     img{
       width: auto;
       height: 100%;
+    }
+  }
+}
+.dashboard-layout{
+  padding: 2%;
+  .appTitleText{
+    text-align: center;
+    h1{
+      font-size: 3.5rem;
+    }
+  }
+  .filterContainer{
+    text-align: center;
+    padding: 15px;
+    input{
+      margin: 0 10px;
+      border: solid 2px @accent-two;
+      padding: 15px;
+      background-color: @body-color;
+      ::placeholder{
+        color: @accent-one;
+      }
     }
   }
 }
