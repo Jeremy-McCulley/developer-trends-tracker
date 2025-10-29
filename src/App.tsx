@@ -12,6 +12,9 @@ function App() {
       <main>
         <Dashboard />
       </main>
+      <footer>
+        <small>Data sourced from the GitHub Search API.</small>
+      </footer>
     </div>
   );
 }
