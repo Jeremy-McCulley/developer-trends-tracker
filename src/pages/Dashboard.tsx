@@ -1,7 +1,4 @@
-// src/pages/Dashboard.tsx
-
 import React from 'react';
-// Make sure this import is correct:
 import { useTrendingRepos, processRepoDataForChart } from '../hooks/useTrendingRepos';
 import { TrendChart } from '../components/trends/TrendChart';
 const LoadingState: React.FC = () => <div>Loading developer trends...</div>;
@@ -15,7 +12,7 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="dashboard-layout" style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
       <header style={{ marginBottom: '30px', textAlign: 'center' }}>
-        <h1>🚀 Developer Interest Tracker</h1>
+        <h1>Developer Interest Tracker</h1>
         <p>Tracking the top trending languages and repositories on GitHub.</p>
         {/* The subtle indicator for background refetches */}
         {isFetching && (

@@ -1,9 +1,5 @@
-import type { GithubApiResponse, RepoData } from '../types';
-
-/**
- * Calculates the date 30 days ago and formats it as YYYY-MM-DD for the GitHub API query.
- * @returns {string} The date 30 days ago.
- */
+import type { GithubApiResponse, RepoData } from '../types'; 
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || 'YOUR_FALLBACK_TOKEN'; 
 const getThirtyDaysAgoDate = (): string => {
   const date = new Date();
   date.setDate(date.getDate() - 30);
@@ -13,30 +9,35 @@ const getThirtyDaysAgoDate = (): string => {
 const START_DATE = getThirtyDaysAgoDate();
 const BASE_GITHUB_API_URL = 
   `https://api.github.com/search/repositories?q=created:>${START_DATE}&sort=stars&order=desc&per_page=100`;
-
-/**
- * Fetches up to the top 1000 trending repositories from GitHub (up to 10 pages).
- * @returns {Promise<RepoData[]>} An array of repository data objects.
- */
 export const fetchTrendingReposApi = async (): Promise<RepoData[]> => {
-  const MAX_PAGES = 10; 
+  const MAX_PAGES = 3; 
+  
   let allRepos: RepoData[] = [];
 
   for (let page = 1; page <= MAX_PAGES; page++) {
     const url = `${BASE_GITHUB_API_URL}&page=${page}`;
-    const response = await fetch(url, {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-      },
-    });
+
+    const headers: HeadersInit = {
+      'Accept': 'application/vnd.github.v3+json',
+    };
+    if (GITHUB_TOKEN && GITHUB_TOKEN !== 'YOUR_FALLBACK_TOKEN') {
+      headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+    }
+
+    const response = await fetch(url, { headers });
 
     if (!response.ok) {
-      // You should add more specific error handling for rate limit (status 403) here
+      if (response.status === 403) {
+        throw new Error(`GitHub API request failed with status 403: Rate limit likely exceeded. 
+          Ensure you have a valid GitHub Personal Access Token set in your .env file.`);
+      }
       throw new Error(`GitHub API request failed on page ${page} with status: ${response.status}`);
     }
 
     const data: GithubApiResponse = await response.json();
-    allRepos = allRepos.concat(data.items);
+    
+    allRepos = allRepos.concat(data.items); 
+
     if (data.items.length < 100) {
       console.log(`Finished fetching. Total pages: ${page}. Total repos: ${allRepos.length}`);
       break; 
