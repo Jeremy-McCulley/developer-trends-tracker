@@ -268,3 +268,18 @@
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/roboto/v49/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuZtammT.ttf) format('truetype');
 }
+header {
+  width: 100%;
+  height: 125px;
+  display: flex;
+  align-items: center;
+}
+header .logoContainer {
+  width: auto;
+  height: 100%;
+  flex-grow: 1;
+}
+header .logoContainer img {
+  width: auto;
+  height: 100%;
+}
