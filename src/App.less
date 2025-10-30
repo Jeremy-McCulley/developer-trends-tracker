@@ -2,64 +2,167 @@
 // IMPORTS
 // ===================================
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 // ===================================
 // GLOBAL VARIABLES
 // ===================================
-@body-color: #24292e; // Black
-@accent-one: #fafbfc; // White
-@accent-two: #2dba4e; // Green
-@header-font: Poppins,Helvetica Neue,Arial,sans-serif;
-@body-font: Roboto,Tahoma,Verdana,sans-serif;
-// body
-#root{
-  width: 100%;
-}
-body{
-  background-color: @body-color;
-}
-h1,h2,h3,h4,h5,h6,th{
+@body-color: #24292e;
+@accent-one: #fafbfc;
+@accent-two: #2dba4e;
+@header-font: Poppins, Helvetica Neue, Arial, sans-serif;
+@body-font: Roboto, Tahoma, Verdana, sans-serif;
+@input-padding: 15px;
+
+// ===================================
+// MIXINS
+// ===================================
+.font-header() {
   font-family: @header-font;
   color: @accent-one;
 }
-p,a,li,td,figcaption,blockquote{
+
+.font-body() {
   font-family: @body-font;
   color: @accent-one;
 }
-// header
-header{
+
+// ===================================
+// GLOBAL STYLES
+// ===================================
+#root {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+body {
+  background-color: @body-color;
+}
+
+h1, h2, h3, h4, h5, h6, th {
+  .font-header();
+}
+
+p, a, li, td, figcaption, blockquote {
+  .font-body();
+}
+
+// ===================================
+// HEADER
+// ===================================
+header {
   width: 100%;
   height: 125px;
   display: flex;
   align-items: center;
-  .logoContainer{
+
+  .logoContainer {
     width: auto;
     height: 100%;
     flex-grow: 1;
-    img{
+
+    img {
       width: auto;
       height: 100%;
     }
   }
 }
-.dashboard-layout{
+
+// ===================================
+// DASHBOARD
+// ===================================
+.dashboard-layout {
   padding: 2%;
-  .appTitleText{
+
+  .appTitleText {
     text-align: center;
-    h1{
+
+    h1 {
       font-size: 3.5rem;
     }
   }
-  .filterContainer{
+
+  .filterContainer {
     text-align: center;
-    padding: 15px;
-    input{
+    padding: @input-padding;
+
+    input {
       margin: 0 10px;
       border: solid 2px @accent-two;
-      padding: 15px;
+      padding: @input-padding;
       background-color: @body-color;
-      ::placeholder{
+      color: @accent-one;
+
+      &::placeholder {
         color: @accent-one;
       }
+
+      @media (max-width: 500px) {
+        margin-bottom: @input-padding;
+      }
     }
+  }
+
+  .graphContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 5% 2%;
+
+    p {
+      .font-body();
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    // Recharts styling optimization
+    .recharts-cartesian-axis-line {
+      stroke: @accent-one;
+    }
+
+    .recharts-bar-rectangle path {
+      fill: @accent-two;
+    }
+
+    .recharts-cartesian-axis-tick-value {
+      fill: @accent-one;
+    }
+
+    .recharts-rectangle {
+      fill: @accent-one;
+    }
+
+    .recharts-tooltip-label {
+      color: @accent-two;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 1090px) {
+      .recharts-responsive-container {
+        margin-bottom: 50px;
+        height: 500px !important;
+
+        .recharts-wrapper {
+          height: 500px !important;
+
+          .recharts-cartesian-axis-tick-value {
+            writing-mode: vertical-rl;
+            text-anchor: start;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// ===================================
+// FOOTER
+// ===================================
+footer {
+  text-align: center;
+
+  p {
+    font-size: 1rem;
+    margin: 0;
   }
 }

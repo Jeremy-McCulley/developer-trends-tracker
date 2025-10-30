@@ -13,7 +13,8 @@ function App() {
         <Dashboard />
       </main>
       <footer>
-        <small>Data sourced from the GitHub Search API.</small>
+        <p>Data sourced from the GitHub Search API.</p>
+        <p>Created By: Jeremy McCulley</p>
       </footer>
     </div>
   );
